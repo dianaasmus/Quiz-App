@@ -5,6 +5,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: helvetica;
 }
 
 .card {
@@ -15,7 +16,8 @@ body {
     display: flex;
 }
 
-.right {
+/* ==================== left  */
+.left {
     width: 20%;
     border-radius: 15px;
     background-color: rgb(95, 23, 235);
@@ -37,4 +39,41 @@ body {
 
 .logo-p2 {
     height: 15px;
+}
+
+/* ==================== Right  */
+.right {
+    width: 60%;
+    padding: 50px 0 50px 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    font-size: 1.5rem;
+    padding-top: 50px;
+    text-shadow: 0 0 17px rgb(95, 23, 235);
+}
+
+.start-q {
+    color: white;
+    padding-top: 22px;
+}
+
+.start-btn {
+    min-width: 100px;
+    height: 40px;
+    margin-top: 38px;
+    color: white;
+    border-radius: 5px;
+    background-color: rgb(95, 23, 235);
+    border: 1px solid rgb(95, 23, 235);
+}
+
+.start-btn:hover {
+    background-color: rgb(11, 7, 77);
+    border: 2px solid rgb(95, 23, 235);
 }
