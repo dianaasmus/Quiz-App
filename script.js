@@ -63,21 +63,21 @@ function returnQuestionsContainer() {
     <h2 id="seen-question"></h2>
     <div class="answers">
         <div>
-            <h3>
+            <h3 onclick="answer('answer_1')">
                 <img src="img/empty-circle.png">
                 <span id="answer_1"></span>
             </h3>
-            <h3>
+            <h3 onclick="answer('answer_2')">
                 <img src="img/empty-circle.png">
                 <span id="answer_2"></span>
             </h3>
         </div>
         <div>
-            <h3>
+            <h3 onclick="answer('answer_3')">
                 <img src="img/empty-circle.png">
                 <span id="answer_3"></span>
             </h3>
-            <h3>
+            <h3 onclick="answer('answer_4')">
                 <img src="img/empty-circle.png">
                 <span id="answer_4"></span>
             </h3>
@@ -97,4 +97,22 @@ function showCurrentQuestion() {
     document.getElementById('answer_2').innerHTML = question['answer_2'];
     document.getElementById('answer_3').innerHTML = question['answer_3'];
     document.getElementById('answer_4').innerHTML = question['answer_4'];
+}
+
+function answer(selection) {
+    let question = questions[currentQuestion];
+    console.log(question);
+    console.log(selection);
+    let selectedAnswer = selection.slice(-1);
+    console.log(selectedAnswer);
+    console.log(question['right_answer']);
+
+    
+    if (selectedAnswer == question['right_answer']) {
+        // selection.classList.add('green-shadow');
+        console.log('richtige Anrtwort');
+    } else {
+        console.log('falsche Anrtwort');
+
+    }
 }
