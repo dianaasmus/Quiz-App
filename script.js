@@ -33,6 +33,8 @@ let questions = [
     },
 ];
 
+let currentQuestion = 0;
+
 function init() {
     let rightSide = document.getElementById('right');
 
@@ -50,6 +52,7 @@ function startQuiz() {
     rightSide.innerHTML = returnQuestionsContainer();
 
     document.getElementById('question-nr').innerHTML = questions.length;
+    showCurrentQuestion();
 }
 
 
@@ -57,26 +60,26 @@ function returnQuestionsContainer() {
     return `
     <h2>Category: HTML</h2>
     <p class="amounts">1 / <span id="question-nr"></span></p>
-    <h2>Which prgramming language is used the most?</h2>
+    <h2 id="seen-question"></h2>
     <div class="answers">
         <div>
             <h3>
                 <img src="img/empty-circle.png">
-                HTML
+                <span id="answer_1"></span>
             </h3>
             <h3>
                 <img src="img/empty-circle.png">
-                CSS
+                <span id="answer_2"></span>
             </h3>
         </div>
         <div>
             <h3>
                 <img src="img/empty-circle.png">
-                Java
+                <span id="answer_3"></span>
             </h3>
             <h3>
                 <img src="img/empty-circle.png">
-                JavaScript
+                <span id="answer_4"></span>
             </h3>
         </div>
     </div>
@@ -85,4 +88,13 @@ function returnQuestionsContainer() {
         <img src="img/arrow.right.png" class="arrow">
     </div>
     `;
+}
+
+function showCurrentQuestion() {
+    let question = questions[currentQuestion];
+    document.getElementById('seen-question').innerHTML = question['question'];
+    document.getElementById('answer_1').innerHTML = question['answer_1'];
+    document.getElementById('answer_2').innerHTML = question['answer_2'];
+    document.getElementById('answer_3').innerHTML = question['answer_3'];
+    document.getElementById('answer_4').innerHTML = question['answer_4'];
 }
