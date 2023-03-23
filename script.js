@@ -59,7 +59,7 @@ function startQuiz() {
 function returnQuestionsContainer() {
     return `
     <h2>Category: HTML</h2>
-    <p class="amounts">1 / <span id="question-nr"></span></p>
+    <p class="amounts"><span id="current-question-nr"></span> / <span id="question-nr"></span></p>
     <h2 id="seen-question"></h2>
     <div class="answers">
         <div>
@@ -84,41 +84,59 @@ function returnQuestionsContainer() {
         </div>
     </div>
     <div>
-        <img src="img/arrow.png" class="arrow">
-        <img src="img/arrow.right.png" class="arrow">
+        <img src="img/arrow.png" class="arrow" id="previous_question" disable>
+        <img type="button" src="img/arrow.right.png" class="arrow" id="next_question" onclick="nextQuestion()" disable>
+        
     </div>
     `;
 }
 
 function showCurrentQuestion() {
+
+    if (currentQuestion >= questions.length) {
+        // TODO show End Screen
+    } else {
+    
     let question = questions[currentQuestion];
+    document.getElementById('current-question-nr').innerHTML = currentQuestion + 1;
+
     document.getElementById('seen-question').innerHTML = question['question'];
     document.getElementById('answer_1').innerHTML = question['answer_1'];
     document.getElementById('answer_2').innerHTML = question['answer_2'];
     document.getElementById('answer_3').innerHTML = question['answer_3'];
     document.getElementById('answer_4').innerHTML = question['answer_4'];
+    }
 }
 
 
 function answer(selection) {
     let question = questions[currentQuestion];
-    // console.log(question);
-    // console.log(selection);
     let selectedAnswer = selection.slice(-1);
-    // let anwserContainer = 
-    // console.log(selectedAnswer);
-    // console.log(question['right_answer']);
-
     let idOfRightAnwer = `answer_${question['right_answer']}`;
 
-    
     if (selectedAnswer == question['right_answer']) {
-        // console.log('richtige Anrtwort');
         document.getElementById(selection).parentNode.classList.add('green-shadow');
     } else {
-        // console.log('falsche Anrtwort');
         document.getElementById(selection).parentNode.classList.add('red-shadow');
         document.getElementById(idOfRightAnwer).parentNode.classList.add('green-shadow');
-
     }
+    document.getElementById('next_question').disabled = false;
 }
+
+function nextQuestion() {
+    currentQuestion++;
+    document.getElementById('next_question').disabled = false;
+    resetAnswerQuestion();
+    showCurrentQuestion();
+}
+
+function resetAnswerQuestion() {
+    document.getElementById('answer_1').parentNode.classList.remove('red-shadow');
+    document.getElementById('answer_1').parentNode.classList.remove('green-shadow');
+    document.getElementById('answer_2').parentNode.classList.remove('red-shadow');
+    document.getElementById('answer_2').parentNode.classList.remove('green-shadow');
+    document.getElementById('answer_3').parentNode.classList.remove('red-shadow');
+    document.getElementById('answer_3').parentNode.classList.remove('green-shadow');
+    document.getElementById('answer_4').parentNode.classList.remove('red-shadow');
+    document.getElementById('answer_4').parentNode.classList.remove('green-shadow');
+}   
