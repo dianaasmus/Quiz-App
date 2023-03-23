@@ -14,55 +14,64 @@ body {
     background-color: rgb(11, 7, 77);
     border-radius: 20px;
     display: flex;
-}
-
-/* ==================== left  */
-.left {
-    width: 20%;
-    border-radius: 15px;
-    background-color: rgb(95, 23, 235);
-    display: flex;
+    align-items: center;
     justify-content: center;
 }
 
-.logo {
+/* ==================== left  */
+#logo {
+    position: absolute;
+    top: 16px;
+    left: 26px;
     display: flex;
     flex-direction: column;
     align-items: center;
-
 }
 
 .logo-p1 {
-    padding-top: 20px;
-    height: 60px;
+    height: 45px;
     cursor: pointer;
 }
 
 .logo-p2 {
-    height: 15px;
+    height: 12px;
     cursor: pointer;
 }
 
 /* ==================== Right  */
-#right {
+#main {
     width: 60%;
-    padding: 50px 0 50px 100px;
+    /* margin-top: -158px; */
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.start-p {
+    color: white;
+}
+
+.main-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-logo-p1 {
+    height: 100px;
+    cursor: pointer;
+}
+
+.main-logo-p2 {
+    height: 50px;
+    cursor: pointer;
 }
 
 h1 {
     text-align: center;
     color: white;
     font-size: 1.5rem;
-    padding-top: 50px;
     text-shadow: 0 0 17px rgb(95, 23, 235);
-}
-
-.start-q {
-    color: white;
-    padding-top: 22px;
 }
 
 .start-btn {
@@ -76,7 +85,7 @@ h1 {
     cursor: pointer;
 }
 
-.start-btn:hover {
+.start-btn:hover, .next-btn:hover, .play-again-btn:hover {
     background-color: rgb(11, 7, 77);
     border: 2px solid rgb(95, 23, 235);
 }
@@ -88,6 +97,7 @@ h2 {
     font-weight: 400;
     margin-top: 10px;
     color: white;
+    text-align: center;
 }
 
 .amounts {
@@ -103,9 +113,10 @@ h2 {
 h3 {
     font-size: 1rem;
     font-weight: 400;
-    min-width: 230px;
+    width: 300px;
     margin: 40px 24px;
     padding: 5px 5px;
+    text-align: center;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -119,7 +130,53 @@ h3:hover {
     box-shadow: 0px 0px 38px 4px rgba(255,255,255,0.38);
 }
 
-.arrow {
+.green-shadow, .green-shadow:hover {
+    box-shadow: 0px 0px 38px 8px rgba(30,173,51,0.70);
+    border: 1px solid rgba(30,173,51,0.38);
+}
+
+.red-shadow, .red-shadow:hover {
+    box-shadow: 0px 0px 38px 4px rgba(239,27,20,0.70);
+    border: 1px solid rgba(239,27,20,0.38);
+}
+
+.next-btn {
+    min-width: 100px;
     height: 40px;
+    color: white;
+    border-radius: 5px;
+    background-color: rgb(95, 23, 235);
+    border: 1px solid rgb(95, 23, 235);
+    cursor: pointer;
+}
+
+/* ==================== End Screen  */
+
+.win {
+    position: absolute;
+    top: 210px;
+}
+
+.result {
+    color: rgb(95, 23, 235);
+    font-size: 1.5rem;
+    margin-top: -123px;
+}
+
+.congratulations {
+    font-size: 1.2rem;
+    color: white;
+    margin: 0;
+}
+
+.play-again-btn {
+    position: relative;
+    top: 200px;
+    min-width: 100px;
+    height: 40px;
+    color: white;
+    border-radius: 5px;
+    background-color: rgb(95, 23, 235);
+    border: 1px solid rgb(95, 23, 235);
     cursor: pointer;
 }
