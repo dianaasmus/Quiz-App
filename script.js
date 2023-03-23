@@ -99,20 +99,26 @@ function showCurrentQuestion() {
     document.getElementById('answer_4').innerHTML = question['answer_4'];
 }
 
+
 function answer(selection) {
     let question = questions[currentQuestion];
-    console.log(question);
-    console.log(selection);
+    // console.log(question);
+    // console.log(selection);
     let selectedAnswer = selection.slice(-1);
-    console.log(selectedAnswer);
-    console.log(question['right_answer']);
+    // let anwserContainer = 
+    // console.log(selectedAnswer);
+    // console.log(question['right_answer']);
+
+    let idOfRightAnwer = `answer_${question['right_answer']}`;
 
     
     if (selectedAnswer == question['right_answer']) {
-        // selection.classList.add('green-shadow');
-        console.log('richtige Anrtwort');
+        // console.log('richtige Anrtwort');
+        document.getElementById(selection).parentNode.classList.add('green-shadow');
     } else {
-        console.log('falsche Anrtwort');
+        // console.log('falsche Anrtwort');
+        document.getElementById(selection).parentNode.classList.add('red-shadow');
+        document.getElementById(idOfRightAnwer).parentNode.classList.add('green-shadow');
 
     }
 }
