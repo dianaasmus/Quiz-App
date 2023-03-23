@@ -41,6 +41,7 @@ let questions = [
     }
 ];
 
+let rightAnswers = 0;
 let currentQuestion = 0;
 
 function init() {
@@ -99,12 +100,25 @@ function returnQuestionsContainer() {
 
 function showCurrentQuestion() {
 
+
     if (currentQuestion >= questions.length) {
+
         document.getElementById('main').innerHTML = `
-            <p class="result">1 / 5</p>
-            <p class="congratulations">Congratulations</p>
-            <img class="win" src="img/win.png">
-            <button class="play-again-btn" onclick="playAgain()">PLAY AGAIN</button>`;
+            <p class="result"><span id="right-question-nr"></span> / <span id="all-question-nr"></span></p>
+            <p id="result-text">Congratulations!</p>
+            <img id="end-img" class="win" src="img/win.png">
+                <button class="play-again-btn" onclick="playAgain()">PLAY AGAIN</button>
+        `;
+
+        document.getElementById('right-question-nr').innerHTML = rightAnswers;
+        document.getElementById('all-question-nr').innerHTML = questions.length;
+
+        if (rightAnswers < 3) {
+            document.getElementById('result-text').innerHTML = 'You lost!';
+            document.getElementById('end-img').src = "img/error.png";
+            document.getElementById('end-img').classList.add('img-position');
+
+        }
     } else {
 
         let question = questions[currentQuestion];
@@ -126,6 +140,7 @@ function answer(selection) {
 
     if (selectedAnswer == question['right_answer']) {
         document.getElementById(selection).parentNode.classList.add('green-shadow');
+        rightAnswers++;
     } else {
         document.getElementById(selection).parentNode.classList.add('red-shadow');
         document.getElementById(idOfRightAnwer).parentNode.classList.add('green-shadow');
@@ -135,7 +150,7 @@ function answer(selection) {
 
 function nextQuestion() {
     currentQuestion++;
-    document.getElementById('next_question').disabled = false;
+    document.getElementById('next_question').disabled = true;
     resetAnswerQuestion();
     showCurrentQuestion();
 }
@@ -150,3 +165,7 @@ function resetAnswerQuestion() {
     document.getElementById('answer_4').parentNode.classList.remove('red-shadow');
     document.getElementById('answer_4').parentNode.classList.remove('green-shadow');
 }   
+
+function playAgain() {
+    window.location.href = "http://google.de";
+}
