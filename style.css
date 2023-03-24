@@ -184,3 +184,50 @@ h3:hover {
     border: 1px solid rgb(95, 23, 235);
     cursor: pointer;
 }
+
+@media (max-width: 860px) {
+
+    #card {
+        height: 75%;
+        width: 75%;
+    }
+
+    h2 {
+        margin: 30px 0;
+    }
+
+    .amounts {
+        margin: 10px 0 0 0;
+    }
+    .answers {
+        flex-direction: column;
+    }
+
+    h3 {
+        margin-top: 3px !important;
+    }
+}
+
+@media (max-width: 400px) {
+
+    .main-logo-p1 {
+        height: 6rem;
+    }
+    
+    .main-logo-p2 {
+        height: 2rem;
+    }
+    
+    h3 {
+        width: 250px;
+    }
+
+    .img-position {
+        padding-top: 182px;
+    }
+
+    .win {
+        height: 255px;
+        top: 265px;
+    }
+}
