@@ -67,12 +67,12 @@ body {
     cursor: pointer;
 }
 
-h1 {
+/* h1 {
     text-align: center;
     color: white;
     font-size: 1.5rem;
     text-shadow: 0 0 17px rgb(95, 23, 235);
-}
+} */
 
 .start-btn {
     min-width: 100px;
@@ -85,7 +85,9 @@ h1 {
     cursor: pointer;
 }
 
-.start-btn:hover, .next-btn:hover, .play-again-btn:hover {
+.start-btn:hover,
+.next-btn:hover,
+.play-again-btn:hover {
     background-color: rgb(11, 7, 77);
     border: 2px solid rgb(95, 23, 235);
 }
@@ -127,17 +129,19 @@ h3 {
 }
 
 h3:hover {
-    box-shadow: 0px 0px 38px 4px rgba(255,255,255,0.38);
+    box-shadow: 0px 0px 38px 4px rgba(255, 255, 255, 0.38);
 }
 
-.green-shadow, .green-shadow:hover {
-    box-shadow: 0px 0px 38px 8px rgba(30,173,51,0.70);
-    border: 1px solid rgba(30,173,51,0.38);
+.green-shadow,
+.green-shadow:hover {
+    box-shadow: 0px 0px 38px 8px rgba(30, 173, 51, 0.70);
+    border: 1px solid rgba(30, 173, 51, 0.38);
 }
 
-.red-shadow, .red-shadow:hover {
-    box-shadow: 0px 0px 38px 4px rgba(239,27,20,0.70);
-    border: 1px solid rgba(239,27,20,0.38);
+.red-shadow,
+.red-shadow:hover {
+    box-shadow: 0px 0px 38px 4px rgba(239, 27, 20, 0.70);
+    border: 1px solid rgba(239, 27, 20, 0.38);
 }
 
 .next-btn {
@@ -159,8 +163,9 @@ h3:hover {
 
 .result {
     color: rgb(95, 23, 235);
-    font-size: 1.5rem;
-    margin-top: -123px;
+    font-size: 1.8rem;
+    margin-top: -129px;
+    text-shadow: 0 0 2px white;
 }
 
 #result-text {
@@ -175,7 +180,7 @@ h3:hover {
 
 .play-again-btn {
     position: relative;
-    top: 200px;
+    top: 189px;
     min-width: 100px;
     height: 40px;
     color: white;
@@ -183,6 +188,13 @@ h3:hover {
     background-color: rgb(95, 23, 235);
     border: 1px solid rgb(95, 23, 235);
     cursor: pointer;
+}
+
+.progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
 }
 
 @media (max-width: 860px) {
@@ -199,12 +211,18 @@ h3:hover {
     .amounts {
         margin: 10px 0 0 0;
     }
+
     .answers {
         flex-direction: column;
     }
 
     h3 {
         margin-top: 3px !important;
+    }
+
+    #logo {
+        top: 16px;
+        left: inherit;
     }
 }
 
@@ -213,11 +231,11 @@ h3:hover {
     .main-logo-p1 {
         height: 6rem;
     }
-    
+
     .main-logo-p2 {
         height: 2rem;
     }
-    
+
     h3 {
         width: 250px;
     }

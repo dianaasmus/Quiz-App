@@ -16,7 +16,7 @@ let questions = [
         "right_answer": 1
     },
     {
-        "question": "which programming language consists only of +, ., >, <, -, [, ] and ,?",
+        "question": "Which programming language consists only of +, ., >, <, -, [, ] and ,?",
         "answer_1": "Whitespace",
         "answer_2": "Brainfuck",
         "answer_3": "INTERCAL",
@@ -32,7 +32,7 @@ let questions = [
         "right_answer": 4
     },
     {
-        "question": "Which programming language can children and adults use to programme in a playful way?",
+        "question": "With which education software can children and adults learn programming?",
         "answer_1": "Nintendo KEY",
         "answer_2": "THE SIMS BUILD",
         "answer_3": "UNO ONLINE",
@@ -70,9 +70,13 @@ function startQuiz() {
 
 function returnQuestionsContainer() {
     return `
-    
+    <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar" id="progress-bar" progress-bar-striped progress-bar-animated" style="width: 20%">20%</div>
+    </div>
+
     <p class="amounts"><span id="current-question-nr"></span> / <span id="question-nr"></span></p>
     <h2 id="seen-question"></h2>
+    
     <div class="answers">
         <div>
             <h3 onclick="answer('answer_1')">
@@ -105,7 +109,7 @@ function showCurrentQuestion() {
 
         document.getElementById('main').innerHTML = `
             <p class="result"><span id="right-question-nr"></span> / <span id="all-question-nr"></span></p>
-            <p id="result-text">Congratulations!</p>
+            <p id="result-text">You won!</p>
             <img id="end-img" class="win" src="img/win.png">
                 <button class="play-again-btn" onclick="playAgain()">PLAY AGAIN</button>
         `;
@@ -120,6 +124,10 @@ function showCurrentQuestion() {
 
         }
     } else {
+        let percent = currentQuestion / questions.length;
+        percent = Math.round(percent * 100);
+        document.getElementById('progress-bar').innerHTML = `${percent} %`;
+        document.getElementById('progress-bar').style.width = `${percent}%`;
 
         let question = questions[currentQuestion];
         document.getElementById('current-question-nr').innerHTML = currentQuestion + 1;
@@ -164,8 +172,15 @@ function resetAnswerQuestion() {
     document.getElementById('answer_3').parentNode.classList.remove('green-shadow');
     document.getElementById('answer_4').parentNode.classList.remove('red-shadow');
     document.getElementById('answer_4').parentNode.classList.remove('green-shadow');
-}   
+}
 
 function playAgain() {
-    window.location.href = "http://google.de";
+    currentQuestion = 0;
+    rightAnswers = 0;
+
+    document.getElementById('main').innerHTML = returnQuestionsContainer();
+    document.getElementById('current-question-nr').innerHTML = currentQuestion + 1;
+    document.getElementById('question-nr').innerHTML = questions.length;
+    
+    showCurrentQuestion();
 }
