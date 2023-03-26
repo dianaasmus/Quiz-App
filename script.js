@@ -43,6 +43,9 @@ let questions = [
 
 let rightAnswers = 0;
 let currentQuestion = 0;
+let AUDIO_SUCCESS = new Audio('audio/success.mp3');
+let AUDIO_FAIL = new Audio('audio/fail.mp3');
+
 
 function init() {
     let rightSide = document.getElementById('main');
@@ -71,7 +74,7 @@ function startQuiz() {
 function returnQuestionsContainer() {
     return `
     <div class="progress" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-        <div class="progress-bar" id="progress-bar" progress-bar-striped progress-bar-animated" style="width: 20%">20%</div>
+        <div class="progress-bar" id="progress-bar" progress-bar-striped progress-bar-animated" style="width: 0%"></div>
     </div>
 
     <p class="amounts"><span id="current-question-nr"></span> / <span id="question-nr"></span></p>
@@ -79,8 +82,7 @@ function returnQuestionsContainer() {
     
     <div class="answers">
         <div>
-            <h3 onclick="answer('answer_1')">
-                
+            <h3 onclick="answer('answer_1')" id="disable">
                 <span id="answer_1"></span>
             </h3>
             <h3 onclick="answer('answer_2')">
@@ -121,7 +123,6 @@ function showCurrentQuestion() {
             document.getElementById('result-text').innerHTML = 'You lost!';
             document.getElementById('end-img').src = "img/error.png";
             document.getElementById('end-img').classList.add('img-position');
-
         }
     } else {
         let percent = currentQuestion / questions.length;
@@ -149,11 +150,16 @@ function answer(selection) {
     if (selectedAnswer == question['right_answer']) {
         document.getElementById(selection).parentNode.classList.add('green-shadow');
         rightAnswers++;
+        
+        AUDIO_SUCCESS.play();
     } else {
         document.getElementById(selection).parentNode.classList.add('red-shadow');
         document.getElementById(idOfRightAnwer).parentNode.classList.add('green-shadow');
+
+        AUDIO_FAIL.play();
     }
     document.getElementById('next_question').disabled = false;
+    document.getElementById("disable").disabled = true;
 }
 
 function nextQuestion() {
