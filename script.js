@@ -82,20 +82,12 @@ function returnQuestionsContainer() {
     
     <div class="answers">
         <div>
-            <h3 onclick="answer('answer_1')" id="disable">
-                <span id="answer_1"></span>
-            </h3>
-            <h3 onclick="answer('answer_2')">
-                <span id="answer_2"></span>
-            </h3>
+            <button class="answer-btn hover" onclick="answer('answer_1')" id="answer_1">1</button>
+            <button class="answer-btn hover" onclick="answer('answer_2')" id="answer_2">2</button>
         </div>
         <div>
-            <h3 onclick="answer('answer_3')">
-                <span id="answer_3"></span>
-            </h3>
-            <h3 onclick="answer('answer_4')">
-                <span id="answer_4"></span>
-            </h3>
+            <button class="answer-btn hover" onclick="answer('answer_3')" id="answer_3">3</button>
+            <button class="answer-btn hover" onclick="answer('answer_4')" id="answer_4">4</button>
         </div>
     </div>
     <div>
@@ -148,21 +140,40 @@ function answer(selection) {
     let idOfRightAnwer = `answer_${question['right_answer']}`;
 
     if (selectedAnswer == question['right_answer']) {
-        document.getElementById(selection).parentNode.classList.add('green-shadow');
+        document.getElementById(selection).classList.add('green-shadow');
         rightAnswers++;
         
         AUDIO_SUCCESS.play();
     } else {
-        document.getElementById(selection).parentNode.classList.add('red-shadow');
-        document.getElementById(idOfRightAnwer).parentNode.classList.add('green-shadow');
+        document.getElementById(selection).classList.add('red-shadow');
+        document.getElementById(idOfRightAnwer).classList.add('green-shadow');
 
         AUDIO_FAIL.play();
     }
     document.getElementById('next_question').disabled = false;
-    document.getElementById("disable").disabled = true;
+    document.getElementById('answer_1').disabled = true;
+    document.getElementById('answer_2').disabled = true;
+    document.getElementById('answer_3').disabled = true;
+    document.getElementById('answer_4').disabled = true;
+
+    document.getElementById('answer_1').classList.remove('hover');
+    document.getElementById('answer_2').classList.remove('hover');
+    document.getElementById('answer_3').classList.remove('hover');
+    document.getElementById('answer_4').classList.remove('hover');
+
 }
 
 function nextQuestion() {
+    document.getElementById('answer_1').disabled = false;
+    document.getElementById('answer_2').disabled = false;
+    document.getElementById('answer_3').disabled = false;
+    document.getElementById('answer_4').disabled = false;
+
+    document.getElementById('answer_1').classList.add('hover');
+    document.getElementById('answer_2').classList.add('hover');
+    document.getElementById('answer_3').classList.add('hover');
+    document.getElementById('answer_4').classList.add('hover');
+
     currentQuestion++;
     document.getElementById('next_question').disabled = true;
     resetAnswerQuestion();
@@ -170,14 +181,14 @@ function nextQuestion() {
 }
 
 function resetAnswerQuestion() {
-    document.getElementById('answer_1').parentNode.classList.remove('red-shadow');
-    document.getElementById('answer_1').parentNode.classList.remove('green-shadow');
-    document.getElementById('answer_2').parentNode.classList.remove('red-shadow');
-    document.getElementById('answer_2').parentNode.classList.remove('green-shadow');
-    document.getElementById('answer_3').parentNode.classList.remove('red-shadow');
-    document.getElementById('answer_3').parentNode.classList.remove('green-shadow');
-    document.getElementById('answer_4').parentNode.classList.remove('red-shadow');
-    document.getElementById('answer_4').parentNode.classList.remove('green-shadow');
+    document.getElementById('answer_1').classList.remove('red-shadow');
+    document.getElementById('answer_1').classList.remove('green-shadow');
+    document.getElementById('answer_2').classList.remove('red-shadow');
+    document.getElementById('answer_2').classList.remove('green-shadow');
+    document.getElementById('answer_3').classList.remove('red-shadow');
+    document.getElementById('answer_3').classList.remove('green-shadow');
+    document.getElementById('answer_4').classList.remove('red-shadow');
+    document.getElementById('answer_4').classList.remove('green-shadow');
 }
 
 function playAgain() {
