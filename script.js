@@ -110,10 +110,12 @@ function gameOver() {
 
 function showEndScreen() {
     document.getElementById('main').innerHTML = `
+        <div class="right-answer-div">
             <p class="result"><span id="right-question-nr"></span> / <span id="all-question-nr"></span></p>
             <p id="result-text">You won!</p>
             <img id="end-img" class="win" src="img/win.png">
-                <button class="play-again-btn" onclick="playAgain()">PLAY AGAIN</button>
+        </div>
+            <button class="play-again-btn" onclick="playAgain()">PLAY AGAIN</button>
         `;
 
     document.getElementById('right-question-nr').innerHTML = rightAnswers;
