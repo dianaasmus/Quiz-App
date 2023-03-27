@@ -142,7 +142,7 @@ h2 {
 
 .win {
     position: absolute;
-    top: 195px;
+    top: 150px;
 }
 
 .right-answer-div {
@@ -194,7 +194,7 @@ h2 {
 @media (max-width: 860px) {
 
     #card {
-        height: 75%;
+        height: 77%;
         width: 75%;
     }
 
@@ -203,7 +203,7 @@ h2 {
     }
 
     .amounts {
-        margin: 10px 0 0 0;
+        margin: 0 0 0 0;
     }
 
     .answers {
@@ -224,7 +224,8 @@ h2 {
 @media (max-width: 450px) {
 
     .answers button {
-        width: 250px;
+        width: 220px;
+        font-size: 0.8rem;
     }
 
     .main-logo-p1 {
@@ -249,6 +250,6 @@ h2 {
 
     .win {
         height: 230px;
-        top: 268px;
+        top: 220px;
     }
 }
