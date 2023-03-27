@@ -48,24 +48,23 @@ let AUDIO_FAIL = new Audio('audio/fail.mp3');
 
 
 function init() {
-    let rightSide = document.getElementById('main');
+    document.getElementById('main').innerHTML = startScreen();
+}
 
-    rightSide.innerHTML = `
-            <p class="start-p">WELCOME TO</p>
-            <div class="main-logo" onclick="init()">
-            <img src="img/quizApp-logo.png" class="main-logo-p1">
-            <img src="img/thequizapp.png" class="main-logo-p2">
-            </div>
-            <button class="start-btn" onclick="startQuiz()">START</button>
-    `;
+function startScreen() {
+    return `
+    <p class="start-p">WELCOME TO</p>
+    <div class="main-logo" onclick="init()">
+    <img src="img/quizApp-logo.png" class="main-logo-p1">
+    <img src="img/thequizapp.png" class="main-logo-p2">
+    </div>
+    <button class="start-btn" onclick="startQuiz()">START</button>
+`;
 }
 
 function startQuiz() {
-    let rightSide = document.getElementById('main');
-
     document.getElementById('logo').style = '';
-    rightSide.innerHTML = returnQuestionsContainer();
-
+    document.getElementById('main').innerHTML = returnQuestionsContainer();
     document.getElementById('question-nr').innerHTML = questions.length;
     showCurrentQuestion();
 }
@@ -97,40 +96,55 @@ function returnQuestionsContainer() {
 }
 
 function showCurrentQuestion() {
+    if (gameOver()) {
+        showEndScreen();
+    } else {
+        progressBar();
+        updateQuestion();
+    }
+}
 
+function gameOver() {
+    return currentQuestion >= questions.length;
+}
 
-    if (currentQuestion >= questions.length) {
-
-        document.getElementById('main').innerHTML = `
+function showEndScreen() {
+    document.getElementById('main').innerHTML = `
             <p class="result"><span id="right-question-nr"></span> / <span id="all-question-nr"></span></p>
             <p id="result-text">You won!</p>
             <img id="end-img" class="win" src="img/win.png">
                 <button class="play-again-btn" onclick="playAgain()">PLAY AGAIN</button>
         `;
 
-        document.getElementById('right-question-nr').innerHTML = rightAnswers;
-        document.getElementById('all-question-nr').innerHTML = questions.length;
+    document.getElementById('right-question-nr').innerHTML = rightAnswers;
+    document.getElementById('all-question-nr').innerHTML = questions.length;
 
-        if (rightAnswers < 3) {
-            document.getElementById('result-text').innerHTML = 'You lost!';
-            document.getElementById('end-img').src = "img/error.png";
-            document.getElementById('end-img').classList.add('img-position');
-        }
-    } else {
-        let percent = currentQuestion / questions.length;
-        percent = Math.round(percent * 100);
-        document.getElementById('progress-bar').innerHTML = `${percent} %`;
-        document.getElementById('progress-bar').style.width = `${percent}%`;
-
-        let question = questions[currentQuestion];
-        document.getElementById('current-question-nr').innerHTML = currentQuestion + 1;
-
-        document.getElementById('seen-question').innerHTML = question['question'];
-        document.getElementById('answer_1').innerHTML = question['answer_1'];
-        document.getElementById('answer_2').innerHTML = question['answer_2'];
-        document.getElementById('answer_3').innerHTML = question['answer_3'];
-        document.getElementById('answer_4').innerHTML = question['answer_4'];
+    if (rightAnswers < 3) {
+        lostScreen();
     }
+}
+
+function lostScreen() {
+    document.getElementById('result-text').innerHTML = 'You lost!';
+    document.getElementById('end-img').src = "img/error.png";
+    document.getElementById('end-img').classList.add('img-position');
+}
+
+function progressBar() {
+    let percent = currentQuestion / questions.length;
+    percent = Math.round(percent * 100);
+    document.getElementById('progress-bar').innerHTML = `${percent} %`;
+    document.getElementById('progress-bar').style.width = `${percent}%`;
+}
+
+function updateQuestion() {
+    let question = questions[currentQuestion];
+    document.getElementById('current-question-nr').innerHTML = currentQuestion + 1;
+    document.getElementById('seen-question').innerHTML = question['question'];
+    document.getElementById('answer_1').innerHTML = question['answer_1'];
+    document.getElementById('answer_2').innerHTML = question['answer_2'];
+    document.getElementById('answer_3').innerHTML = question['answer_3'];
+    document.getElementById('answer_4').innerHTML = question['answer_4'];
 }
 
 
@@ -139,17 +153,31 @@ function answer(selection) {
     let selectedAnswer = selection.slice(-1);
     let idOfRightAnwer = `answer_${question['right_answer']}`;
 
-    if (selectedAnswer == question['right_answer']) {
-        document.getElementById(selection).classList.add('green-shadow');
-        rightAnswers++;
-        
-        AUDIO_SUCCESS.play();
+    if (rightAnswerSelected(selectedAnswer, question)) {
+        showRightAnswer(selection);
     } else {
-        document.getElementById(selection).classList.add('red-shadow');
-        document.getElementById(idOfRightAnwer).classList.add('green-shadow');
-
-        AUDIO_FAIL.play();
+        showWrongAnswer(selection, idOfRightAnwer);
     }
+    disableOtherAnswers();
+}
+
+function rightAnswerSelected(selectedAnswer, question){
+    return selectedAnswer == question['right_answer'];
+}
+
+function showRightAnswer(selection) {
+    document.getElementById(selection).classList.add('green-shadow');
+    rightAnswers++;
+    AUDIO_SUCCESS.play();
+}
+
+function showWrongAnswer(selection, idOfRightAnwer) {
+    document.getElementById(selection).classList.add('red-shadow');
+    document.getElementById(idOfRightAnwer).classList.add('green-shadow');
+    AUDIO_FAIL.play();
+}
+
+function disableOtherAnswers() {
     document.getElementById('next_question').disabled = false;
     document.getElementById('answer_1').disabled = true;
     document.getElementById('answer_2').disabled = true;
@@ -160,24 +188,25 @@ function answer(selection) {
     document.getElementById('answer_2').classList.remove('hover');
     document.getElementById('answer_3').classList.remove('hover');
     document.getElementById('answer_4').classList.remove('hover');
-
 }
 
 function nextQuestion() {
-    document.getElementById('answer_1').disabled = false;
-    document.getElementById('answer_2').disabled = false;
-    document.getElementById('answer_3').disabled = false;
-    document.getElementById('answer_4').disabled = false;
-
-    document.getElementById('answer_1').classList.add('hover');
-    document.getElementById('answer_2').classList.add('hover');
-    document.getElementById('answer_3').classList.add('hover');
-    document.getElementById('answer_4').classList.add('hover');
-
+    enableOtherAnswers();
     currentQuestion++;
     document.getElementById('next_question').disabled = true;
     resetAnswerQuestion();
     showCurrentQuestion();
+}
+
+function enableOtherAnswers() {
+    document.getElementById('answer_1').disabled = false;
+    document.getElementById('answer_2').disabled = false;
+    document.getElementById('answer_3').disabled = false;
+    document.getElementById('answer_4').disabled = false;
+    document.getElementById('answer_1').classList.add('hover');
+    document.getElementById('answer_2').classList.add('hover');
+    document.getElementById('answer_3').classList.add('hover');
+    document.getElementById('answer_4').classList.add('hover');
 }
 
 function resetAnswerQuestion() {
@@ -194,10 +223,8 @@ function resetAnswerQuestion() {
 function playAgain() {
     currentQuestion = 0;
     rightAnswers = 0;
-
     document.getElementById('main').innerHTML = returnQuestionsContainer();
     document.getElementById('current-question-nr').innerHTML = currentQuestion + 1;
     document.getElementById('question-nr').innerHTML = questions.length;
-    
     showCurrentQuestion();
 }
